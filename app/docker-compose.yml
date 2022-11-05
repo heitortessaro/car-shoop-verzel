@@ -3,6 +3,8 @@ version: "3"
 services:
   # Serviço que irá rodar o node
   back-end:
+    # Imagem base do container
+    image: node:16.14
     # Nome do container para facilitar execução
     container_name: back-end
     # Caminho da Dockerfile
@@ -16,8 +18,9 @@ services:
     # Restarta a imagem caso algo a faça parar
     restart: on-failure
     # Lista de serviços do qual este serviço depende
-    # depends_on:
-
+    depends_on:
+      # Precisa do mongo funcionando antes de subir o node
+      - mongodb
     # Lista de portas mapeadas de dentro para fora do container
     # na notação porta_de_fora:porta_de_dentro
     ports:
@@ -25,6 +28,24 @@ services:
       - 3001:3001
     environment:
       - PORT=3001
+      - MONGO_URI=mongodb://mongodb:27017/Carshoop
 
+  # Serviço que irá rodar o mongodb
+  mongodb:
+    image: mongo:5.0.7
+    container_name: carshoop_db
+    volumes:
+      - ./:/app
+    restart: always
+    ports:
+      # Garanta que não haverá conflitos de porta com um mongodb que esteja
+      # rodando localmente
+      - 27017:27017
 
+# Lista de redes que os containeres irão utilizar
+networks:
+  # Rede padrão, criada automaticamente
+  default:
+    # Dá um nome específico à rede padrão
+    name: carshoop_net
 
