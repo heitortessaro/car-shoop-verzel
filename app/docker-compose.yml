@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  # Serviço que irá rodar o node
+  back-end:
+    # Nome do container para facilitar execução
+    container_name: back-end
+    # Caminho da Dockerfile
+    build: ./back-end
+    # Mesmo que `docker run -t`
+    # tty: true
+    # Mesmo que `docker run -i`
+    # stdin_open: true
+    # Substitui o comando padrão da imagem do node
+    # command: bash
+    # Restarta a imagem caso algo a faça parar
+    restart: on-failure
+    # Lista de serviços do qual este serviço depende
+    # depends_on:
+
+    # Lista de portas mapeadas de dentro para fora do container
+    # na notação porta_de_fora:porta_de_dentro
+    ports:
+      # Expõe a porta padrão da aplicação
+      - 3001:3001
+    environment:
+      - PORT=3001
+
+
+

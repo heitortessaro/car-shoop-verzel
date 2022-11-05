@@ -14,9 +14,9 @@ app.use(express.json());
 
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+  res.send('Heitor');
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`[server]: Server is running at http://localhost:${PORT}`);
 });
