@@ -1,22 +1,16 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import helmet from 'helmet';
-
-dotenv.config();
+import 'dotenv/config';
+import app from './app';
+import connectToDatabase from './models/connections';
 
 const PORT = process.env.PORT || 3001;
 
-const app: Express = express();
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
-
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Heitor');
-});
-
-app.listen(PORT, () => {
-  console.log(`[server]: Server is running at http://localhost:${PORT}`);
-});
+connectToDatabase()
+  .then(() => {
+    app.listen(PORT, () => console.log(`Running server on port: ${PORT}`));
+  })
+  .catch((error) => {
+    console.log('Connection with database generated an error:\r\n');
+    console.error(error);
+    console.log('\r\nServer initialization cancelled');
+    process.exit(0);
+  });
