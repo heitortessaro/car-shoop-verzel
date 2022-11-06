@@ -2,6 +2,8 @@ export enum ErrorTypes {
   EntityNotFound = 'EntityNotFound',
   InvalidMongoId = 'InvalidMongoId',
   InvalidNewData = 'InvalidNewData',
+  InvalidLoginData = 'InvalidLoginData',
+  InvalidJWT = 'InvalidJWT',
 }
 
 // obj para construir a resposta da API
@@ -29,4 +31,12 @@ export const errorCatalog: ErrorCatalog = {
     message: 'Invalid new data. An equal register already exists in the database',
     httpStatus: 400,
   },
+  InvalidLoginData: {
+    message: 'Invalid login data. Incorrect email or password',
+    httpStatus: 401,
+  },
+  InvalidJWT: {
+    message: 'Invalid JWT. Token must be a valid',
+    httpStatus: 401,
+  }
 };
