@@ -19,16 +19,16 @@ describe('User Model', function () {
     sinon.stub(Model, 'find').resolves(userList);
     sinon.stub(Model, 'findById')
       .onCall(0).resolves(userMockWithId)
-      .onCall(1)
-      .resolves(null);
+      .onCall(1).resolves(null);
+    sinon.stub(Model, 'findOne')
+      .onCall(0).resolves(userMockWithId)
+      .onCall(1).resolves(null);
     sinon.stub(Model, 'findByIdAndUpdate')
       .onCall(0).resolves(userMockWithId)
-      .onCall(1)
-      .resolves(null);
+      .onCall(1).resolves(null);
     sinon.stub(Model, 'findByIdAndDelete')
       .onCall(0).resolves(userMockWithId)
-      .onCall(1)
-      .resolves(null);
+      .onCall(1).resolves(null);
   });
 
   after(function () {
@@ -67,6 +67,17 @@ describe('User Model', function () {
     });
     it('error: _id not found', async function () {
       const user = await userModel.readOneById(validMongoId);
+      expect(user).to.be.equal(null);
+    });
+  });
+
+  describe('searching a user register by email', function () {
+    it('sucessfully found', async function () {
+      const user = await userModel.findOneByEmail('test@test.com');
+      expect(user).to.be.deep.equal(userMockWithId);
+    });
+    it('error: email not found', async function () {
+      const user = await userModel.findOneByEmail('noexistingemail@test.com');
       expect(user).to.be.equal(null);
     });
   });

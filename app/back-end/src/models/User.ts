@@ -21,6 +21,10 @@ class User extends MongoModel<IUser> {
   constructor(model = mongooseCreateModel('User', userMongooseSchema)) {
     super(model);
   }
+
+  public async findOneByEmail(email: string): Promise<IUser | null> {
+    return this._model.findOne({ email });
+  }
 }
 
 export default User;
