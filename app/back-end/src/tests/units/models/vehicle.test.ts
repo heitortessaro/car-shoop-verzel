@@ -47,8 +47,8 @@ describe('Vehicle Model', function () {
       const vehicles = await vehicleModel.read();
       expect(vehicles).to.be.an('array');
       // o ? evita erros no caso de vehicles seja null
-      vehicles?.forEach((university: IVehicle, index: number) => {
-        expect(university).to.be.deep.equal(vehicleList[index]);
+      vehicles?.forEach((vehicle: IVehicle, index: number) => {
+        expect(vehicle).to.be.deep.equal(vehicleList[index]);
       });
     });
   });

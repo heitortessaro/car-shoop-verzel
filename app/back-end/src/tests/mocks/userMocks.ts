@@ -7,7 +7,7 @@ const userMock: IUser = {
   password: '12345678912345789',
 }
 
-const userMockkWithId: IUser & { _id: string } = {
+const userMockWithId: IUser & { _id: string } = {
   _id: '6323930286e451c2a5727b9d',
   name: 'Nome',
   lastName: 'Sobrenome',
@@ -17,5 +17,5 @@ const userMockkWithId: IUser & { _id: string } = {
 
 export {
   userMock,
-  userMockkWithId
+  userMockWithId
 };
