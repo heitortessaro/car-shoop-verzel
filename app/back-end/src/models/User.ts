@@ -11,6 +11,8 @@ import MongoModel from './MongoModels';
 // atributos disponíveis para usarmos.
 
 const userMongooseSchema = new Schema<IUser>({
+  name: String,
+  lastName: String,
   email: String,
   password: String,
 }, { versionKey: false });
