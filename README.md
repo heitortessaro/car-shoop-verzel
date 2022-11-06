@@ -120,6 +120,11 @@ Os testes devem ser executados e os resultados apresentados no próprio terminal
 
 ## Materiais Utilizados
 
-- Validação imagens zod: https://stackoverflow.com/questions/72674930/zod-validator-validate-image
+- [Validação imagens zod](https://stackoverflow.com/questions/72674930/zod-validator-validate-image). Não mais utilizado.
 
-- upload image: https://www.youtube.com/watch?v=srPXMt1Q0nY
+- [Upload image no back-end](https://www.youtube.com/watch?v=srPXMt1Q0nY).
+
+## Futuras Melhorias
+
+- Ao atualizar o registro remover a imagem antiga se ela foi alterada.
+- Tratar rotas não existentes enviando um erro;
