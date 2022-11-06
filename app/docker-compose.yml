@@ -10,11 +10,11 @@ services:
     # Caminho da Dockerfile
     build: ./back-end
     # Mesmo que `docker run -t`
-    # tty: true
+    tty: true
     # Mesmo que `docker run -i`
-    # stdin_open: true
+    stdin_open: true
     # Substitui o comando padrão da imagem do node
-    # command: bash
+    command: bash
     # Restarta a imagem caso algo a faça parar
     restart: on-failure
     # Lista de serviços do qual este serviço depende
