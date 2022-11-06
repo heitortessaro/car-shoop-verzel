@@ -126,5 +126,6 @@ Os testes devem ser executados e os resultados apresentados no próprio terminal
 
 ## Futuras Melhorias
 
-- Ao atualizar o registro remover a imagem antiga se ela foi alterada.
+- Ao atualizar o registro remover a imagem antiga se ela foi alterada.;
 - Tratar rotas não existentes enviando um erro;
+- Opção para adicionar, atualizar, buscar e deletar usuários;
