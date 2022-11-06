@@ -1,8 +1,5 @@
 import { z } from 'zod';
 
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-
 const VehicleZodSchema = z.object({
   model: z.string().min(3, { message: 'Model must be 3 or more characters long' }),
   brand: z.string().min(3, { message: 'Brand must be 3 or more characters long' }),
