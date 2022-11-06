@@ -1,4 +1,5 @@
 import { model as mongooseCreateModel, Schema } from 'mongoose';
+import { IModelUser } from '../interfaces/IModelUser';
 import { IUser } from '../interfaces/IUser';
 import MongoModel from './MongoModels';
 
@@ -17,12 +18,12 @@ const userMongooseSchema = new Schema<IUser>({
   password: String,
 }, { versionKey: false });
 
-class User extends MongoModel<IUser> {
+class User extends MongoModel<IUser> implements IModelUser<IUser>{
   constructor(model = mongooseCreateModel('User', userMongooseSchema)) {
     super(model);
   }
 
-  public async findOneByEmail(email: string): Promise<IUser | null> {
+  public async readOneByEmail(email: string): Promise<IUser | null> {
     return this._model.findOne({ email });
   }
 }

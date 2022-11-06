@@ -73,11 +73,11 @@ describe('User Model', function () {
 
   describe('searching a user register by email', function () {
     it('sucessfully found', async function () {
-      const user = await userModel.findOneByEmail('test@test.com');
+      const user = await userModel.readOneByEmail('test@test.com');
       expect(user).to.be.deep.equal(userMockWithId);
     });
     it('error: email not found', async function () {
-      const user = await userModel.findOneByEmail('noexistingemail@test.com');
+      const user = await userModel.readOneByEmail('noexistingemail@test.com');
       expect(user).to.be.equal(null);
     });
   });
