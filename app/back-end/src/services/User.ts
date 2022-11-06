@@ -2,6 +2,7 @@ import { IServiceUser } from '../interfaces/IServiceUser';
 import { IUser, UserZodSchema } from '../interfaces/IUser';
 import { IModelUser } from '../interfaces/IModelUser';
 import { ErrorTypes } from '../errors/catalog';
+import HashPassword from './HashPassword';
 
 class UserService implements IServiceUser<IUser> {
   // implementa a interface IUser no modelo, definindo o generics T
@@ -17,7 +18,10 @@ class UserService implements IServiceUser<IUser> {
     if (!parsed.success) {
       throw parsed.error;
     }
-    return this._user.create(parsed.data);
+    const hash: string = HashPassword.encrypt(parsed.data.password);
+    const { password, ...userDataWithoutPassword } = parsed.data;
+    const userData = { ...userDataWithoutPassword, password: hash }
+    return this._user.create(userData);
   }
 
   public async readOneByEmail(email: string): Promise<IUser> {
