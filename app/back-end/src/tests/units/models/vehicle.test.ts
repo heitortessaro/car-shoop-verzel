@@ -29,14 +29,6 @@ describe('Vehicle Model', function () {
       .onCall(0).resolves(vehicleMockWithId)
       .onCall(1)
       .resolves(null);
-    sinon.stub(Model, 'findByIdAndUpdate')
-      .onCall(0).resolves(vehicleMockWithId)
-      .onCall(1)
-      .resolves(null);
-    sinon.stub(Model, 'findByIdAndDelete')
-      .onCall(0).resolves(vehicleMockWithId)
-      .onCall(1)
-      .resolves(null);
   });
 
   after(function () {
