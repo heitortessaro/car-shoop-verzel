@@ -1,4 +1,4 @@
-export interface IService<T> {
+export interface IServiceVehicle<T> {
   create(obj: T): Promise<T>,
   read(): Promise<T[]>,
   readOneById(_id: string): Promise<T>,
