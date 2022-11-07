@@ -11,15 +11,25 @@ const vehicleController = new VehicleController(vehicleService);
 
 const baseURL = '/vehicles';
 
-route.post(baseURL, (req: Request, res: Response) =>
-  vehicleController.create(req, res));
-route.get(baseURL, (req: Request, res: Response) =>
-  vehicleController.read(req, res));
-route.get(`${baseURL}/:id`, (req: Request, res: Response) =>
-  vehicleController.readOneById(req, res));
-route.put(`${baseURL}/:id`, (req: Request, res: Response) =>
-  vehicleController.update(req, res));
-route.delete(`${baseURL}/:id`, (req: Request, res: Response) =>
-  vehicleController.delete(req, res));
+route.post(
+  baseURL,
+  (req: Request, res: Response) => vehicleController.create(req, res)
+);
+route.get(
+  baseURL,
+  (req: Request, res: Response) => vehicleController.read(req, res)
+);
+route.get(
+  `${baseURL}/:id`,
+  (req: Request, res: Response) => vehicleController.readOneById(req, res)
+);
+route.put(
+  `${baseURL}/:id`,
+  (req: Request, res: Response) => vehicleController.update(req, res)
+);
+route.delete(
+  `${baseURL}/:id`,
+  (req: Request, res: Response) => vehicleController.delete(req, res)
+);
 
 export default route;

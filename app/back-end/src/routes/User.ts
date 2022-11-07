@@ -11,9 +11,13 @@ const userController = new UserController(userService);
 
 const baseURL = '/users';
 
-route.post(baseURL, (req: Request, res: Response) =>
-  userController.create(req, res));
-route.post(baseURL, (req: Request, res: Response) =>
-  userController.login(req, res));
+route.post(
+  baseURL,
+  (req: Request, res: Response) => userController.create(req, res)
+);
+route.post(
+  baseURL,
+  (req: Request, res: Response) => userController.login(req, res)
+);
 
 export default route;
