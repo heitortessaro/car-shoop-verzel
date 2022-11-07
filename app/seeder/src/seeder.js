@@ -1,7 +1,7 @@
 const User = require('./models/User');
-const userData = require('./data/user');
 const Vehicle = require('./models/Vehicle');
-const vehiclesData = require('./data/vehicles');
+const { userData } = require('./data/user');
+const { vehiclesData } = require('./data/vehicles');
 
 const seeder = async () => {
   await User.deleteMany({});

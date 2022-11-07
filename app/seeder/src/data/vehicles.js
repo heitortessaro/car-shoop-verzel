@@ -19,6 +19,4 @@ const vehiclesData = [
   },
 ];
 
-module.exports = {
-  vehiclesData,
-};
+module.exports = { vehiclesData };
