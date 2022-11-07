@@ -1,9 +1,9 @@
-import { IService } from '../interfaces/IService';
+import { IServiceVehicle } from '../interfaces/IServiceVehicle';
 import { IVehicle, VehicleZodSchema } from '../interfaces/IVehicle';
 import { IModel } from '../interfaces/IModel';
 import { ErrorTypes } from '../errors/catalog';
 
-class VehicleService implements IService<IVehicle> {
+class VehicleService implements IServiceVehicle<IVehicle> {
   // implementa a interface IVegucke no modelo, definindo o generics T
   private _vehicle: IModel<IVehicle>;
   constructor(model: IModel<IVehicle>) {

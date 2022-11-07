@@ -13,6 +13,8 @@ Na sequeência são listadas as principais tecnologias utilizadas para a impleme
 - [Helmet](https://geopy.readthedocs.io/en/stable/index.html?highlight=geodesic#): é uma biblioteca para aprimorar a segurança de aplicações criadas em Express que adiciona HTTP header à aplicação.
 - [Cors](https://www.npmjs.com/package/cors): é um pacote Node.js que prove um middleware utilizado para habilitar CORS (Cross-Origin Resource Sharing).
 - [ESLint](https://eslint.org/) para padronização do código.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) uma implementação do JSON Web Tokens.
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs): para converter as senhas dos usuários em hash antes de salvar no banco de dados.
 
 Para a implementação dos testes unitários foram utilizadas:
 
@@ -126,5 +128,6 @@ Os testes devem ser executados e os resultados apresentados no próprio terminal
 
 ## Futuras Melhorias
 
-- Ao atualizar o registro remover a imagem antiga se ela foi alterada.
+- Ao atualizar o registro remover a imagem antiga se ela foi alterada.;
 - Tratar rotas não existentes enviando um erro;
+- Opção para adicionar, atualizar, buscar e deletar usuários;
