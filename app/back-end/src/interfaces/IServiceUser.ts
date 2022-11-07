@@ -1,4 +1,4 @@
-export interface IServiceUser<T> {
+export interface IServiceUser<T, Y> {
   create(obj: T): Promise<T>,
-  readOneByEmail(email: string): Promise<T>,
+  login(obj: Y): Promise<string>,
 }
