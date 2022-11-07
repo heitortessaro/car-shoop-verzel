@@ -4,6 +4,7 @@ export enum ErrorTypes {
   InvalidNewData = 'InvalidNewData',
   InvalidLoginData = 'InvalidLoginData',
   InvalidJWT = 'InvalidJWT',
+  InvalidNewUserData = 'InvalidNewUserData',
 }
 
 // obj para construir a resposta da API
@@ -38,5 +39,9 @@ export const errorCatalog: ErrorCatalog = {
   InvalidJWT: {
     message: 'Invalid JWT. Token must be a valid',
     httpStatus: 401,
+  },
+  InvalidNewUserData: {
+    message: 'Invalid new user data. User already exists',
+    httpStatus: 400,
   }
 };
