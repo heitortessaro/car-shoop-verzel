@@ -1,11 +1,12 @@
 import { sign, verify, JwtPayload } from 'jsonwebtoken';
 import { ErrorTypes } from '../errors/catalog';
 import 'dotenv/config';
+import { IUser } from '../interfaces/IUser';
 
 export default class JwtService {
-  public static signToken(email: string): string {
+  public static signToken(userInfo: Omit<IUser, 'password'>): string {
     const token = sign(
-      email,
+      userInfo,
       process.env.JWT_SECRET || 'easypassword', {
       expiresIn: '6h',
       algorithm: 'HS256',
