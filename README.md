@@ -15,6 +15,7 @@ Na sequeência são listadas as principais tecnologias utilizadas para a impleme
 - [ESLint](https://eslint.org/) para padronização do código.
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) uma implementação do JSON Web Tokens.
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs): para converter as senhas dos usuários em hash antes de salvar no banco de dados.
+- [multer](https://www.npmjs.com/package/multer): é um middleware node.js para trabalhar com multipart/form-data, geralmente ligado ao upload de arquivos.
 
 Para a implementação dos testes unitários foram utilizadas:
 
@@ -124,7 +125,9 @@ Os testes devem ser executados e os resultados apresentados no próprio terminal
 
 - [Validação imagens zod](https://stackoverflow.com/questions/72674930/zod-validator-validate-image). Não mais utilizado.
 
-- [Upload image no back-end](https://www.youtube.com/watch?v=srPXMt1Q0nY).
+- [Upload de imagem no back-end](https://www.youtube.com/watch?v=srPXMt1Q0nY).
+
+- [Seeder no MongoDB com Mongoose](https://www.youtube.com/watch?v=SRBLmyeUFFI).
 
 ## Futuras Melhorias
 
