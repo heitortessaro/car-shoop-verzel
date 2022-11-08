@@ -46,8 +46,8 @@ class UserService implements IServiceUser<IUser, ILogin> {
     }
     const user = await this.readOneByEmail(parsed.data.email);
     HashPassword.validatePassword(parsed.data.password, user.password);
-    const { password, ...userInfo } = user;
-    const token = JwtService.signToken(userInfo);
+    const { email, name, lastName } = user;
+    const token = JwtService.signToken({ email, name, lastName });
     return token;
   }
 }
