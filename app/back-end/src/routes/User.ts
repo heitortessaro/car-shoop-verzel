@@ -14,7 +14,7 @@ const userController = new UserController(userService);
 const baseURL = '/users';
 
 route.post(
-  baseURL,
+  `${baseURL}/create`,
   authenticationMiddleware.validateAuthorizationToken,
   (req: Request, res: Response) => userController.create(req, res)
 );
