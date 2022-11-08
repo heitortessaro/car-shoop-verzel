@@ -6,7 +6,17 @@ class VehicleController {
   constructor(private _service: IServiceVehicle<IVehicle>) { }
 
   public async create(req: Request, res: Response) {
-    const result = await this._service.create(req.body);
+    const vehicleInfo: IVehicle = {
+      model: req.body.model,
+      brand: req.body.brand,
+      description: req.body.description,
+      year: parseInt(req.body.year),
+      color: req.body.color,
+      buyValue: parseFloat(req.body.buyValue),
+      image: req.body.image,
+    }
+    console.log(req.body.model)
+    const result = await this._service.create(vehicleInfo);
     return res.status(201).json(result);
   }
 
