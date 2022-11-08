@@ -33,7 +33,7 @@ services:
     # Serviço que irá rodar o seeder
   seeder:
     # Nome do container para facilitar execução
-    container_name: universities_seeder
+    container_name: seeder
     # Caminho da Dockerfile
     build: ./seeder 
     # Restarta a imagem caso algo a faça parar

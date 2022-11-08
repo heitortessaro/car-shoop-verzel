@@ -37,18 +37,4 @@ describe('User Service', function () {
     });
   });
 
-  describe('reading an user with email', () => {
-    it('sucessfully read user registers', async () => {
-      const user = await userService.readOneByEmail('test@test.com');
-      expect(user).to.be.deep.equal(userMockWithId);
-    });
-    it('error: results not found', async () => {
-      try {
-        await userService.readOneByEmail('wrongemail@test.com');
-      } catch (error: any) {
-        expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
-      }
-    });
-  });
-
 });
