@@ -3,7 +3,37 @@ import VehicleController from '../controllers/Vehicle';
 import VehicleService from '../services/Vehicle';
 import VehicleModel from '../models/Vehicles';
 import AuthenticationMiddleware from '../middleware/authentication';
+import multer from 'multer';
+import { ErrorTypes } from '../errors/catalog';
+import MulterRequest from '../interfaces/IRequestMulter';
 
+// define como os arquivos serão armazenados
+const storage = multer.diskStorage({
+  destination: function (req: Request, file: any, cb: any) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req: Request, file: any, cb: any) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+})
+
+const fileFilter = (_req: Request, file: any, cb: any) => {
+  // rejeita arquivos diferentes de jpeg e png
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(
+      () => { throw new Error(ErrorTypes.InvalidFileType) }
+      , false
+    );
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 3 },
+  fileFilter: fileFilter
+})
 const route = Router();
 
 const authenticationMiddleware = new AuthenticationMiddleware();
@@ -16,7 +46,8 @@ const baseURL = '/vehicles';
 route.post(
   baseURL,
   authenticationMiddleware.validateAuthorizationToken,
-  (req: Request, res: Response) => vehicleController.create(req, res)
+  upload.single('vehicleImage'),
+  (req: MulterRequest, res: Response) => vehicleController.create(req, res)
 );
 route.get(
   baseURL,
