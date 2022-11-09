@@ -10,6 +10,7 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 app.use(vehicleRouter);
 app.use(userRouter);
 app.use(errorHandler);
