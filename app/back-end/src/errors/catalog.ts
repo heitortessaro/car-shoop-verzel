@@ -1,4 +1,5 @@
 export enum ErrorTypes {
+  InvalidRoute = 'InvalidRoute',
   EntityNotFound = 'EntityNotFound',
   InvalidMongoId = 'InvalidMongoId',
   InvalidNewData = 'InvalidNewData',
@@ -22,6 +23,10 @@ export type ErrorCatalog = {
 };
 
 export const errorCatalog: ErrorCatalog = {
+  InvalidRoute: {
+    message: 'Invalid route. Route does not exist.',
+    httpStatus: 404,
+  },
   EntityNotFound: {
     message: 'Object not found',
     httpStatus: 404,
