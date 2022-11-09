@@ -1,10 +1,13 @@
 export enum ErrorTypes {
+  InvalidRoute = 'InvalidRoute',
   EntityNotFound = 'EntityNotFound',
   InvalidMongoId = 'InvalidMongoId',
   InvalidNewData = 'InvalidNewData',
   InvalidLoginData = 'InvalidLoginData',
   InvalidJWT = 'InvalidJWT',
   InvalidNewUserData = 'InvalidNewUserData',
+  InvalidFileSize = 'InvalidFileSize',
+  InvalidFileType = 'InvalidFileType',
 }
 
 // obj para construir a resposta da API
@@ -20,6 +23,10 @@ export type ErrorCatalog = {
 };
 
 export const errorCatalog: ErrorCatalog = {
+  InvalidRoute: {
+    message: 'Invalid route. Route does not exist.',
+    httpStatus: 404,
+  },
   EntityNotFound: {
     message: 'Object not found',
     httpStatus: 404,
@@ -43,5 +50,13 @@ export const errorCatalog: ErrorCatalog = {
   InvalidNewUserData: {
     message: 'Invalid new user data. User already exists',
     httpStatus: 400,
-  }
+  },
+  InvalidFileSize: {
+    message: 'Invalid file size. Its size should not be larger than 3mb',
+    httpStatus: 400,
+  },
+  InvalidFileType: {
+    message: 'Invalid file type. Only jpeg and png files are accepted.',
+    httpStatus: 400,
+  },
 };

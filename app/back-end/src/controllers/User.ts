@@ -13,8 +13,8 @@ class UserController {
   }
 
   public async login(req: Request, res: Response) {
-    const result = await this._service.login(req.body);
-    return res.status(200).json(result);
+    const token = await this._service.login(req.body);
+    return res.status(200).json({ token: token });
   }
 }
 
