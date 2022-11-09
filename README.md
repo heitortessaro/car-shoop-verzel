@@ -2,6 +2,16 @@
 
 Aplicação full-stack de um ecormerce de veículos.
 
+Este projeto é resultado do desafio técnico proposto pela empresa Verzel. O desafio consistia em desenvolver uma aplicação full-stack de um ecommerce de veículos. Para isso, três serviços principais foram desenvolvidos
+
+- Parte 1 (seeder): criar um script para fazer o carregamento inicial das informações no banco de dados.
+- Parte 2 (back-end): Criar uma API que providencie um CRUD (create,‌ ‌retrieve,‌ ‌update,‌ ‌delete)‌‌ dos veículos a venda. Apenas a pessoa administradora deve conseguir adicionar, editar e remover veículos do banco de dados. Assim, uma rota de login é fornecida. Uma rota de cadastro de usuários foi contruída, mas essa ainda não foi finalizada.
+- Parte 3 (front-end): Aplicação que possibilita a qualquer usuário avaliar os veículos a venda. Além disso, possibilita que usuários adiministradores cadastrados adicionem, removam ou editem a lista de veículos a venda.
+
+O script relacionado à parte 1 do desafio se encontra no diretório **/seeder**. Já a API que implementa o CRUD se encontra no diretório **/back-end** e a aplicação front-end está no diretório **/front-end**.
+
+No restante dessa documentação são apresentadas informações como as tecnologias e arquitetura utilizadas no projeto, a documentação da API e guias de como rodar a aplicação em sua máquina.
+
 ## Tecnologias utilizadas
 
 Na sequeência são listadas as principais tecnologias utilizadas para a implementação do projeto. Inicialmente são apresentadas as utilizadas para o desenvolvimento da aplicação:
@@ -25,11 +35,82 @@ Para a implementação dos testes unitários foram utilizadas:
 
 Para a implementação do banco de dados se utilizou o [MongoDB](https://www.mongodb.com/), o qual rodou a partir de um container local. Todavia, outra opção é utilizar o serviço [Atlas](https://www.mongodb.com/atlas).
 
-## Documentação da API
+## Documentação da API - **ainda não disponível**
+
+A documentação da API foi construída utilizando a ferramenta Postman. Você pode acessar a última versão através deste [link](). Na documentação você tem acesso a todas as rodas, bem como a exemplos de requisições a cada rota.
 
 ## Organização e Arquitetura
 
 A aplicação tentou aplicar a filosofia **SOLID** em conjunto com a arquitetura **MSC** e **orientação a objetos**. Assim, interfaces foram utilizadas para contruir a abstração da aplicação e garantir a inversão de dependências. Ademais, arquivos relacionados ao model (M) tem por objetivo possibilitar a conexão e interação com o banco de dados, já arquivos do service (S) performam ações de validação das regras de negócio e validação e, por fim, arquivos relacionados ao controller (C) se destinam a fazer a interface com as requisições externas a aplicação. Essa segregação é mais fácil observada analisando a estrutura da API apresentada a seguir:
+
+### Back-End
+
+```
+📦src
+┣ 📂controllers
+┃ ┣ 📜User.ts
+┃ ┗ 📜Vehicle.ts
+┣ 📂errors
+┃ ┗ 📜catalog.ts
+┣ 📂interfaces
+┃ ┣ 📜ILogin.ts
+┃ ┣ 📜IModel.ts
+┃ ┣ 📜IModelUser.ts
+┃ ┣ 📜IRequestMulter.ts
+┃ ┣ 📜IRequestWithHeader.ts
+┃ ┣ 📜IServiceUser.ts
+┃ ┣ 📜IServiceVehicle.ts
+┃ ┣ 📜IUser.ts
+┃ ┗ 📜IVehicle.ts
+┣ 📂middleware
+┃ ┣ 📜authentication.ts
+┃ ┗ 📜error.ts
+┣ 📂models
+┃ ┣ 📜MongoModels.ts
+┃ ┣ 📜User.ts
+┃ ┣ 📜Vehicles.ts
+┃ ┗ 📜connections.ts
+┣ 📂routes
+┃ ┣ 📜User.ts
+┃ ┗ 📜Vehicle.ts
+┣ 📂services
+┃ ┣ 📜HashPassword.ts
+┃ ┣ 📜JWT.ts
+┃ ┣ 📜User.ts
+┃ ┗ 📜Vehicle.ts
+┣ 📂tests
+┃ ┣ 📂mocks
+┃ ┃ ┣ 📜userMocks.ts
+┃ ┃ ┗ 📜vehicleMock.ts
+┃ ┗ 📂units
+┃ ┃ ┣ 📂controllers
+┃ ┃ ┃ ┗ 📜vehicle.test.ts
+┃ ┃ ┣ 📂models
+┃ ┃ ┃ ┣ 📜user.test.ts
+┃ ┃ ┃ ┗ 📜vehicle.test.ts
+┃ ┃ ┗ 📂services
+┃ ┃ ┃ ┣ 📜users.test.ts
+┃ ┃ ┃ ┗ 📜vehicles.test.ts
+┣ 📜app.ts
+┗ 📜index.ts
+```
+
+### Seeder
+
+```
+📦src
+┣ 📂data
+┃ ┣ 📜user.js
+┃ ┗ 📜vehicles.js
+┣ 📂helpers
+┃ ┗ 📜encriptPassword.js
+┣ 📂models
+┃ ┣ 📜User.js
+┃ ┣ 📜Vehicle.js
+┃ ┗ 📜connections.js
+┣ 📜index.js
+┗ 📜seeder.js
+```
 
 ## Rodando o Projeto na Sua Máquina
 
@@ -131,6 +212,8 @@ Os testes devem ser executados e os resultados apresentados no próprio terminal
 
 ## Futuras Melhorias
 
-- Ao atualizar o registro remover a imagem antiga se ela foi alterada.;
-- Tratar rotas não existentes enviando um erro;
+- Remover a imagem quando o registro é removido;
+- Adicionar a funcionalidade do multer a rota de atualização;
+- Reavaliar os testes desenvolvidos para o bac-kend;
+- Ao atualizar o registro remover a imagem antiga se ela foi alterada;
 - Opção para adicionar, atualizar, buscar e deletar usuários;
