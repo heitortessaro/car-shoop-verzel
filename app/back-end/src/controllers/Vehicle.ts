@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
+import IMulterRequest from '../interfaces/IRequestMulter';
 import { IServiceVehicle } from '../interfaces/IServiceVehicle';
 import { IVehicle } from '../interfaces/IVehicle';
 
 class VehicleController {
   constructor(private _service: IServiceVehicle<IVehicle>) { }
 
-  public async create(req: Request, res: Response) {
+  public async create(req: IMulterRequest, res: Response) {
     const vehicleInfo: IVehicle = {
       model: req.body.model,
       brand: req.body.brand,
@@ -13,9 +14,8 @@ class VehicleController {
       year: parseInt(req.body.year),
       color: req.body.color,
       buyValue: parseFloat(req.body.buyValue),
-      image: req.body.image,
+      image: req.file.path,
     }
-    console.log(req.body.model)
     const result = await this._service.create(vehicleInfo);
     return res.status(201).json(result);
   }
