@@ -5,6 +5,7 @@ export enum ErrorTypes {
   InvalidLoginData = 'InvalidLoginData',
   InvalidJWT = 'InvalidJWT',
   InvalidNewUserData = 'InvalidNewUserData',
+  InvalidFileSize = 'InvalidFileSize',
 }
 
 // obj para construir a resposta da API
@@ -43,5 +44,9 @@ export const errorCatalog: ErrorCatalog = {
   InvalidNewUserData: {
     message: 'Invalid new user data. User already exists',
     httpStatus: 400,
-  }
+  },
+  InvalidFileSize: {
+    message: 'Invalid file size. Its size should not be larger than 3mb',
+    httpStatus: 400,
+  },
 };
