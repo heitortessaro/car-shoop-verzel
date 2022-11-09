@@ -6,6 +6,7 @@ export enum ErrorTypes {
   InvalidJWT = 'InvalidJWT',
   InvalidNewUserData = 'InvalidNewUserData',
   InvalidFileSize = 'InvalidFileSize',
+  InvalidFileType = 'InvalidFileType',
 }
 
 // obj para construir a resposta da API
@@ -47,6 +48,10 @@ export const errorCatalog: ErrorCatalog = {
   },
   InvalidFileSize: {
     message: 'Invalid file size. Its size should not be larger than 3mb',
+    httpStatus: 400,
+  },
+  InvalidFileType: {
+    message: 'Invalid file type. Only jpeg and png files are accepted.',
     httpStatus: 400,
   },
 };
