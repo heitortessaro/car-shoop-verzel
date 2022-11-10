@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer p-10 bg-neutral text-neutral-content">
       <div>
         <img
-          src="https://www.verzel.com.br/static/media/logo_verzel.0335b665.svg"
+          src="https://www.verzel.com.br/static/media/icon_verzel_logo.b730ce46.svg"
           alt="Verzel logo"
         />
         <p>
