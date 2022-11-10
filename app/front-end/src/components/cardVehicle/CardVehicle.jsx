@@ -17,6 +17,9 @@ export default function CardVehicle({ model, brand, description, year, buyValue,
           <div className="badge badge-outline">{brand}</div>
           <div className="badge badge-outline">{year}</div>
         </div>
+        <div className="card-actions justify-end">
+          <button className="btn btn-primary">Editar</button>
+        </div>
       </div>
     </div>
   );
