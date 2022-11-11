@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import getVehicles from './getvehicles';
 
 const initialState = {
-  vehicles: [],
-  loading: false,
+  vehiclesList: [],
+  loading: true,
   requestError: false
 };
 
@@ -20,7 +20,7 @@ const vehiclesSlice = createSlice({
       state.loading = true;
     },
     [getVehicles.fulfilled]: (state, { payload }) => {
-      state.vehicles = payload.results;
+      state.vehiclesList = payload;
       state.loading = false;
     },
     [getVehicles.rejected]: (state) => {
@@ -30,6 +30,9 @@ const vehiclesSlice = createSlice({
   }
 });
 
+export const selectVehicles = (state) => state.vehicles.vehiclesList;
+export const selectLoading = (state) => state.vehicles.loading;
+
 export const { resetRequestError } = vehiclesSlice.actions;
 
-export default vehiclesSlice;
+export default vehiclesSlice.reducer;
