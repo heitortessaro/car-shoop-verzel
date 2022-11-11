@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function CardVehicle({ vehicleInfo }) {
-  console.log('chegou');
   const { model, brand, description, year, buyValue, image } = vehicleInfo;
   const imageURL = `${import.meta.env.VITE_API_BASE_URL}${image}`;
   return (
