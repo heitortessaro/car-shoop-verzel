@@ -1,13 +1,12 @@
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
 const getVehicles = createAsyncThunk('vehicles/getVehicles', async () => {
-  let url = 'http:localhost:3001/vehicles';
+  let url = `${import.meta.env.VITE_API_BASE_URL}/vehicles`;
   try {
-    const resolve = await fetch(url);
-    const data = await resolve.json();
-    return data.items;
-  } catch (error) {
-    console.log(`getVehicles ${error.message}`);
+    const { data } = await axios.get(url);
+    return data;
+  } catch (AxiosError) {
+    console.log(AxiosError);
   }
 });
 
