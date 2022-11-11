@@ -2,11 +2,13 @@ import Footer from './components/footer/Footer';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 
+import Home from './pages/home/Home';
+
 function App() {
   return (
-    <div className="App">
+    <div className="App min-h-screen flex flex-col">
       <Navbar />
-      <h1 className="text-3xl font-bold">Hello world!</h1>
+      <Home />
       <Footer />
     </div>
   );
