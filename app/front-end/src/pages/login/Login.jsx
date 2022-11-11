@@ -16,7 +16,7 @@ export default function Login() {
   console.log(errors);
 
   return (
-    <main className="w-screen grow bg-slate-200 text-slate-800 py-4">
+    <main className="w-screen grow bg-slate-200 text-slate-800 flex justify-center items-center py-4">
       <form
         onSubmit={handleSubmit((data) => console.log(data))}
         className="border-2 rounded-lg border-slate-400 flex flex-col  gap-4 w-80 p-4">

@@ -13,8 +13,6 @@ export default function Home() {
     dispatch(getVehicles());
   }, []);
 
-  console.log(vehicleList);
-
   return (
     <main className="w-screen grow bg-slate-200 text-slate-800 flex flex-wrap	gap-4 justify-center py-4">
       {loading && (
