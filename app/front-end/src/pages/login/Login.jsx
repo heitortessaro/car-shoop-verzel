@@ -1,7 +1,14 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLogged } from '../../features/user/userSlice';
+
+import loginUser from '../../features/user/actions/loginUser';
 
 export default function Login() {
+  const loggedUser = useSelector(selectLogged);
   const {
     register,
     handleSubmit,
@@ -12,13 +19,26 @@ export default function Login() {
       password: ''
     }
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  console.log(errors);
+  const checkUserLogin = () => {
+    if (loggedUser) {
+      navigate('/');
+    }
+  };
+
+  useEffect(() => {
+    checkUserLogin();
+  }, [loggedUser]);
 
   return (
     <main className="w-screen grow bg-slate-200 text-slate-800 flex justify-center items-center py-4">
       <form
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) => {
+          console.log(data);
+          dispatch(loginUser(data));
+        })}
         className="border-2 rounded-lg border-slate-400 flex flex-col  gap-4 w-80 p-4">
         <input
           type="text"
