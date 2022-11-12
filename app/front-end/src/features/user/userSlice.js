@@ -15,6 +15,11 @@ const userSlice = createSlice({
   reducers: {
     resetRequestError: (state) => {
       state.requestError = false;
+    },
+    logout: (state) => {
+      state.token = '';
+      state.logged = false;
+      state.userName = '';
     }
   },
   extraReducers: {
@@ -22,7 +27,7 @@ const userSlice = createSlice({
       const { name, lastName } = jwt_decode(payload.token);
       console.log(jwt_decode(payload.token));
       state.token = payload.token;
-      state.name = name + lastName;
+      state.userName = `${name} ${lastName}`;
       state.loading = false;
       state.logged = true;
     },
@@ -37,6 +42,6 @@ export const selectUserName = (state) => state.user.userName;
 export const selectToken = (state) => state.user.token;
 export const selectLogged = (state) => state.user.logged;
 
-export const { resetRequestError } = userSlice.actions;
+export const { resetRequestError, logout } = userSlice.actions;
 
 export default userSlice.reducer;
