@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { selectLogged } from '../../features/user/userSlice';
 
 export default function CardVehicle({ vehicleInfo }) {
   const { model, brand, description, year, buyValue, image } = vehicleInfo;
   const imageURL = `${import.meta.env.VITE_API_BASE_URL}${image}`;
+  const logged = useSelector(selectLogged);
   return (
     <div className="card w-96 bg-base-100 text-zinc-700 shadow-xl">
       <figure className="px-4 pt-4">
@@ -19,9 +22,11 @@ export default function CardVehicle({ vehicleInfo }) {
           <div className="badge badge-outline">{brand}</div>
           <div className="badge badge-outline">{year}</div>
         </div>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Editar</button>
-        </div>
+        {logged && (
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary">Editar</button>
+          </div>
+        )}
       </div>
     </div>
   );
