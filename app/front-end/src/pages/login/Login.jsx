@@ -52,7 +52,9 @@ export default function Login() {
           placeholder="E-mail"
           className="input input-bordered input-primary w-full max-w-xs"
         />
-        {errors.email !== undefined && <p>{errors.email.message}</p>}
+        {errors.email !== undefined && (
+          <p className="text-xs text-red-500">{errors.email.message}</p>
+        )}
 
         <input
           type="password"
@@ -63,7 +65,9 @@ export default function Login() {
           placeholder="Password"
           className="input input-bordered input-primary w-full max-w-xs"
         />
-        {errors.password !== undefined && <p>{errors.password.message}</p>}
+        {errors.password !== undefined && (
+          <p className="text-xs text-red-500">{errors.password.message}</p>
+        )}
 
         <input type="submit" value="Login" className="btn w-24 mx-auto" />
       </form>
