@@ -210,6 +210,8 @@ Os testes devem ser executados e os resultados apresentados no próprio terminal
 
 - [Seeder no MongoDB com Mongoose](https://www.youtube.com/watch?v=SRBLmyeUFFI).
 
+- [React-hook-form guide](https://blog.logrocket.com/react-hook-form-complete-guide/)
+
 ## Futuras Melhorias
 
 - Remover a imagem quando o registro é removido;
