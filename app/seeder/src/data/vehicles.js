@@ -15,7 +15,7 @@ const vehiclesData = [
     year: 2012,
     color: 'esmeralda',
     buyValue: 19200,
-    image: '/uploads/classic.jpg',
+    image: '/uploads/classic.jpeg',
   },
   {
     model: 'Clio',
