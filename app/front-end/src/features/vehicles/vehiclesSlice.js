@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getVehicles from './actions/getvehicles';
+import saveVehicle from './actions/saveVehicle';
 
 const initialState = {
   receivedVehicles: [],
   vehiclesList: [],
   loading: true,
-  requestError: false
+  requestError: false,
+  requestSucess: false
 };
 
 const vehiclesSlice = createSlice({
@@ -15,8 +17,10 @@ const vehiclesSlice = createSlice({
     resetRequestError: (state) => {
       state.requestError = false;
     },
+    resetRequestSucess: (state) => {
+      state.requestError = false;
+    },
     sortVehicleList: (state, { payload }) => {
-      console.log(payload);
       switch (payload) {
         case 'anoCrescente':
           state.vehiclesList = state.receivedVehicles.sort((a, b) => a.year > b.year);
@@ -50,13 +54,21 @@ const vehiclesSlice = createSlice({
     [getVehicles.rejected]: (state) => {
       state.loading = false;
       state.requestError = true;
+    },
+
+    [saveVehicle.fulfilled]: (state) => {
+      state.requestSucess = true;
+    },
+    [saveVehicle.rejected]: (state) => {
+      state.requestError = true;
     }
   }
 });
 
 export const selectVehicles = (state) => state.vehicles.vehiclesList;
 export const selectLoading = (state) => state.vehicles.loading;
+export const selectRequestSucess = (state) => state.vehicles.requestSucess;
 
-export const { resetRequestError, sortVehicleList } = vehiclesSlice.actions;
+export const { resetRequestError, sortVehicleList, resetRequestSucess } = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;
