@@ -25,7 +25,6 @@ const userSlice = createSlice({
   extraReducers: {
     [loginUser.fulfilled]: (state, { payload }) => {
       const { name, lastName } = jwt_decode(payload.token);
-      console.log(jwt_decode(payload.token));
       state.token = payload.token;
       state.userName = `${name} ${lastName}`;
       state.loading = false;
