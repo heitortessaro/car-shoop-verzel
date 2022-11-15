@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import getVehicles from './getvehicles';
+import getVehicles from './actions/getvehicles';
 
 const initialState = {
   receivedVehicles: [],

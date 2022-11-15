@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardVehicle from '../../components/cardVehicle/CardVehicle';
 import SelectBar from '../../components/selectBar/SelectBar';
-import getVehicles from '../../features/vehicles/getvehicles';
+import getVehicles from '../../features/vehicles/actions/getvehicles';
 import { selectVehicles, selectLoading } from '../../features/vehicles/vehiclesSlice';
 
 export default function Home() {
