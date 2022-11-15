@@ -7,7 +7,8 @@ const initialState = {
   vehiclesList: [],
   loading: true,
   requestError: false,
-  requestSucess: false
+  requestSucess: false,
+  requestEnd: false
 };
 
 const vehiclesSlice = createSlice({
@@ -58,9 +59,11 @@ const vehiclesSlice = createSlice({
 
     [saveVehicle.fulfilled]: (state) => {
       state.requestSucess = true;
+      state.requestEnd = true;
     },
     [saveVehicle.rejected]: (state) => {
       state.requestError = true;
+      state.requestEnd = true;
     }
   }
 });
@@ -68,6 +71,7 @@ const vehiclesSlice = createSlice({
 export const selectVehicles = (state) => state.vehicles.vehiclesList;
 export const selectLoading = (state) => state.vehicles.loading;
 export const selectRequestSucess = (state) => state.vehicles.requestSucess;
+export const selectRequestEnd = (state) => state.vehicles.requestEnd;
 
 export const { resetRequestError, sortVehicleList, resetRequestSucess } = vehiclesSlice.actions;
 
