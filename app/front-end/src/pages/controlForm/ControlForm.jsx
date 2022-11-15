@@ -6,15 +6,16 @@ import { useNavigate } from 'react-router-dom';
 // import SelectBar from '../../components/selectBar/SelectBar';
 // import getVehicles from '../../features/vehicles/getvehicles';
 // import { selectVehicles, selectLoading } from '../../features/vehicles/vehiclesSlice';
-import { selectLogged } from '../../features/user/userSlice';
+import { selectLogged, selectToken } from '../../features/user/userSlice';
 
 export default function ControlForm() {
   const newDate = new Date();
   const navigate = useNavigate();
+  const authorizationToken = useSelector(selectToken);
   const loggedUser = useSelector(selectLogged);
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -30,6 +31,18 @@ export default function ControlForm() {
   // const loading = useSelector(selectLoading);
   // const dispatch = useDispatch();
 
+  const submitFormData = (data) => {
+    const formData = new FormData();
+    formData.append('brand', data.brand);
+    formData.append('buyValue', parseInt(data.buyValue));
+    formData.append('color', data.color);
+    formData.append('description', data.description);
+    formData.append('model', data.model);
+    formData.append('vehicleImage', data.vehicleImage[0]);
+    formData.append('year', parseInt(data.year));
+    console.log(formData, authorizationToken);
+  };
+
   return (
     <main className="w-screen grow bg-slate-200 text-slate-800 flex justify-center items-center py-4">
       {!loggedUser && (
@@ -44,7 +57,11 @@ export default function ControlForm() {
         </div>
       )}
       {loggedUser && (
-        <form className="border-2 rounded-lg border-slate-400 flex flex-col  gap-4 w-3/4  max-w-2xl p-4">
+        <form
+          onSubmit={handleSubmit((data) => {
+            submitFormData(data);
+          })}
+          className="border-2 rounded-lg border-slate-400 flex flex-col  gap-4 w-3/4  max-w-2xl p-4">
           <input
             type="text"
             {...register('model', {
@@ -55,7 +72,7 @@ export default function ControlForm() {
             className="input input-bordered input-primary w-full max-w-2xl"
           />
           {errors.model !== undefined && (
-            <p className="text-xs text-red-500">{errors.password.message}</p>
+            <p className="text-xs text-red-500">{errors.model.message}</p>
           )}
 
           <input
@@ -67,8 +84,8 @@ export default function ControlForm() {
             placeholder="Montadora"
             className="input input-bordered input-primary w-full max-w-2xl"
           />
-          {errors.model !== undefined && (
-            <p className="text-xs text-red-500">{errors.password.message}</p>
+          {errors.brand !== undefined && (
+            <p className="text-xs text-red-500">{errors.brand.message}</p>
           )}
 
           <input
@@ -80,56 +97,63 @@ export default function ControlForm() {
             placeholder="Cor"
             className="input input-bordered input-primary w-full max-w-2xl"
           />
-          {errors.model !== undefined && (
-            <p className="text-xs text-red-500">{errors.password.message}</p>
+          {errors.color !== undefined && (
+            <p className="text-xs text-red-500">{errors.color.message}</p>
           )}
 
           <div className="flex gap-4">
-            <input
-              type="number"
-              {...register('year', {
-                required: 'Forneça o ano do veículo',
-                min: {
-                  value: 2000,
-                  message: 'Não são aceitos veículos mais antigos que o ano 2000'
-                },
-                max: {
-                  value: newDate.getFullYear(),
-                  message: `Não são aceitos veículos mais antigos que o ano 2000 ${newDate.getFullYear()}`
-                }
-              })}
-              placeholder="Ano do veículo"
-              className="input input-bordered input-primary w-full max-w-2xl"
-            />
-            {errors.model !== undefined && (
-              <p className="text-xs text-red-500">{errors.password.message}</p>
-            )}
+            <div>
+              <input
+                type="number"
+                {...register('year', {
+                  required: 'Forneça o ano do veículo',
+                  min: {
+                    value: 2000,
+                    message: 'Não são aceitos veículos mais antigos que o ano 2000'
+                  },
+                  max: {
+                    value: newDate.getFullYear(),
+                    message: `Não são aceitos veículos mais antigos que o ano 2000 ${newDate.getFullYear()}`
+                  }
+                })}
+                placeholder="Ano do veículo"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
+              {errors.year !== undefined && (
+                <p className="text-xs text-red-500">{errors.year.message}</p>
+              )}
+            </div>
 
-            <input
-              type="text"
-              {...register('buyValue', {
-                required: 'Forneça o valor de venda do veículo',
-                min: {
-                  value: 0,
-                  message: 'Não são aceitos valores negativos'
-                }
-              })}
-              placeholder="Valor sem pontos ou espaços"
-              className="input input-bordered input-primary w-full max-w-2xl"
-            />
-            {errors.model !== undefined && (
-              <p className="text-xs text-red-500">{errors.password.message}</p>
-            )}
+            <div>
+              <input
+                type="number"
+                {...register('buyValue', {
+                  required: 'Forneça o valor de venda do veículo',
+                  min: {
+                    value: 0,
+                    message: 'Não são aceitos valores negativos'
+                  }
+                })}
+                placeholder="Valor sem pontos ou espaços"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
+              {errors.buyValue !== undefined && (
+                <p className="text-xs text-red-500">{errors.buyValue.message}</p>
+              )}
+            </div>
           </div>
 
           <textarea
-            {...register('brand', {
+            {...register('description', {
               required: 'Forneça uma descrição do veículo',
               minLength: { value: 20, message: 'Deve possuir ao menos 20 caractéres' }
             })}
             className="textarea textarea-bordered input-primary w-full max-w-2xl"
             placeholder="Descrição"
           />
+          {errors.description !== undefined && (
+            <p className="text-xs text-red-500">{errors.description.message}</p>
+          )}
 
           <input
             type="file"
@@ -140,6 +164,9 @@ export default function ControlForm() {
             accept="image/png, image/jpeg"
             className="file-input file-input-bordered w-full max-w-2xl"
           />
+          {errors.vehicleImage !== undefined && (
+            <p className="text-xs text-red-500">{errors.vehicleImage.message}</p>
+          )}
 
           <input type="submit" value="Cadastrar" className="btn w-32 mx-auto" />
         </form>
