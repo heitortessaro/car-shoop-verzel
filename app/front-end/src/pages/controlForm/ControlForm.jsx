@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import CardVehicle from '../../components/cardVehicle/CardVehicle';
-// import SelectBar from '../../components/selectBar/SelectBar';
-// import getVehicles from '../../features/vehicles/getvehicles';
-// import { selectVehicles, selectLoading } from '../../features/vehicles/vehiclesSlice';
 import { selectLogged, selectToken } from '../../features/user/userSlice';
+import { selectRequestSucess, selectRequestEnd } from '../../features/vehicles/vehiclesSlice';
+import saveVehicle from '../../features/vehicles/actions/saveVehicle';
+import { useState } from 'react';
 
 export default function ControlForm() {
   const newDate = new Date();
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const authorizationToken = useSelector(selectToken);
   const loggedUser = useSelector(selectLogged);
+  const requestSucess = useSelector(selectRequestSucess);
+  const requestEnd = useSelector(selectRequestEnd);
+
+  const [requestError, setRequestError] = useState(false);
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -27,11 +35,9 @@ export default function ControlForm() {
       buyValue: 0
     }
   });
-  // const vehicleList = useSelector(selectVehicles);
-  // const loading = useSelector(selectLoading);
-  // const dispatch = useDispatch();
 
   const submitFormData = (data) => {
+    setRequestError(false);
     const formData = new FormData();
     formData.append('brand', data.brand);
     formData.append('buyValue', parseInt(data.buyValue));
@@ -40,11 +46,27 @@ export default function ControlForm() {
     formData.append('model', data.model);
     formData.append('vehicleImage', data.vehicleImage[0]);
     formData.append('year', parseInt(data.year));
-    console.log(formData, authorizationToken);
+    dispatch(saveVehicle({ authorizationToken, formData }));
   };
+
+  const handleRequestEnd = () => {
+    if (requestEnd) {
+      if (requestSucess) {
+        setRequestError(false);
+        reset();
+      } else {
+        setRequestError(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleRequestEnd();
+  }, [requestEnd]);
 
   return (
     <main className="w-screen grow bg-slate-200 text-slate-800 flex justify-center items-center py-4">
+      {requestError && <p className="text-red-500">Erro ao realizar a operação com o servidor</p>}
       {!loggedUser && (
         <div className="flex flex-col items-center">
           <p className="text-lg font-bold text-red-500 pb-7">
