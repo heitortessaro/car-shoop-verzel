@@ -69,7 +69,7 @@ const vehiclesData = [
     year: 2011,
     color: 'laranja',
     buyValue: 18900,
-    image: '/uploads/Uno.jpeg',
+    image: '/uploads/uno.jpeg',
   },
 ];
 
