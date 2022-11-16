@@ -31,7 +31,8 @@ const fileFilter = (_req: Request, file: any, cb: any) => {
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 3 },
+  // rejeita arquivos maiores que 10Mb
+  limits: { fileSize: 1024 * 1024 * 10 },
   fileFilter: fileFilter
 })
 const route = Router();
