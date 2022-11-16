@@ -35,8 +35,17 @@ class VehicleController {
     return res.status(200).json(result);
   }
 
-  public async update(req: Request, res: Response) {
-    const result = await this._service.update(req.params.id, req.body);
+  public async update(req: IMulterRequest, res: Response) {
+    const vehicleInfo: IVehicle = {
+      model: req.body.model,
+      brand: req.body.brand,
+      description: req.body.description,
+      year: parseInt(req.body.year),
+      color: req.body.color,
+      buyValue: parseFloat(req.body.buyValue),
+      image: `/${req.file.path}`,
+    }
+    const result = await this._service.update(req.params.id, vehicleInfo);
     return res.status(200).json(result);
   }
 }

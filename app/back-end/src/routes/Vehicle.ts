@@ -61,6 +61,7 @@ route.get(
 route.put(
   `${baseURL}/:id`,
   authenticationMiddleware.validateAuthorizationToken,
+  upload.single('vehicleImage'),
   (req: Request, res: Response) => vehicleController.update(req, res)
 );
 route.delete(
