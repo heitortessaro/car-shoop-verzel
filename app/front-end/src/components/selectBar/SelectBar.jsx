@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-// import { useSelector, useDispatch } from 'react-redux';
 import { sortVehicleList } from '../../features/vehicles/vehiclesSlice';
 
 export default function SelectBar() {
