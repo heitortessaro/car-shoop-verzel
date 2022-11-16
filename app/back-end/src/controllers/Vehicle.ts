@@ -14,7 +14,7 @@ class VehicleController {
       year: parseInt(req.body.year),
       color: req.body.color,
       buyValue: parseFloat(req.body.buyValue),
-      image: req.file.path,
+      image: `/${req.file.path}`,
     }
     const result = await this._service.create(vehicleInfo);
     return res.status(201).json(result);
