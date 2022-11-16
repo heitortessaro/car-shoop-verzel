@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getVehicles from './actions/getvehicles';
 import saveVehicle from './actions/saveVehicle';
+import deleteVehicle from './actions/deleteVehicle';
 
 const initialState = {
   receivedVehicles: [],
@@ -44,6 +45,7 @@ const vehiclesSlice = createSlice({
     }
   },
   extraReducers: {
+    // GET
     [getVehicles.pending]: (state) => {
       state.loading = true;
     },
@@ -56,12 +58,21 @@ const vehiclesSlice = createSlice({
       state.loading = false;
       state.requestError = true;
     },
-
+    // SAVE
     [saveVehicle.fulfilled]: (state) => {
       state.requestSucess = true;
       state.requestEnd = true;
     },
     [saveVehicle.rejected]: (state) => {
+      state.requestError = true;
+      state.requestEnd = true;
+    },
+    // DELETE
+    [deleteVehicle.fulfilled]: (state) => {
+      state.requestSucess = true;
+      state.requestEnd = true;
+    },
+    [deleteVehicle.rejected]: (state) => {
       state.requestError = true;
       state.requestEnd = true;
     }
