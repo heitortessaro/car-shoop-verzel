@@ -24,7 +24,7 @@ export default function Login() {
 
   const checkUserLogin = () => {
     if (loggedUser) {
-      navigate('/');
+      navigate('/admin');
     }
   };
 

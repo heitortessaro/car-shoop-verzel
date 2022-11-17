@@ -6,7 +6,8 @@ const initialState = {
   userName: '',
   token: '',
   requestError: false,
-  logged: false
+  logged: false,
+  adminOperation: 'create'
 };
 
 const userSlice = createSlice({
@@ -20,6 +21,9 @@ const userSlice = createSlice({
       state.token = '';
       state.logged = false;
       state.userName = '';
+    },
+    defineAdminOperation: (state, { payload }) => {
+      state.adminOperation = payload;
     }
   },
   extraReducers: {
@@ -40,7 +44,8 @@ const userSlice = createSlice({
 export const selectUserName = (state) => state.user.userName;
 export const selectToken = (state) => state.user.token;
 export const selectLogged = (state) => state.user.logged;
+export const selectAdminOperation = (state) => state.user.adminOperation;
 
-export const { resetRequestError, logout } = userSlice.actions;
+export const { resetRequestError, logout, defineAdminOperation } = userSlice.actions;
 
 export default userSlice.reducer;
