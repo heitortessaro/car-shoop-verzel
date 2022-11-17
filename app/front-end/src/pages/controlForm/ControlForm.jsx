@@ -6,9 +6,11 @@ import { selectLogged, selectToken, selectAdminOperation } from '../../features/
 import {
   selectRequestSucess,
   selectRequestEnd,
-  selectInfoToUpdate
+  selectInfoToUpdate,
+  resetRequestInfo
 } from '../../features/vehicles/vehiclesSlice';
 import saveVehicle from '../../features/vehicles/actions/saveVehicle';
+import updateVehicle from '../../features/vehicles/actions/updateVehicle';
 import { useState } from 'react';
 import AdminBar from '../../components/adminBar/AdminBar';
 
@@ -31,12 +33,9 @@ export default function ControlForm() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors }
-  } = useForm({
-    defaultValues: {
-      ...infoToUpdate
-    }
-  });
+  } = useForm({});
 
   const submitFormData = (data) => {
     setRequestError(false);
@@ -48,20 +47,35 @@ export default function ControlForm() {
     formData.append('model', data.model);
     formData.append('vehicleImage', data.vehicleImage[0]);
     formData.append('year', parseInt(data.year));
-    dispatch(saveVehicle({ authorizationToken, formData }));
+    if (adminOperation === 'update') {
+      dispatch(updateVehicle({ authorizationToken, formData, vehicleId: infoToUpdate._id }));
+    } else {
+      dispatch(saveVehicle({ authorizationToken, formData }));
+    }
   };
 
   const handleRequestEnd = () => {
-    if (requestEnd) {
-      if (requestSucess) {
-        setRequestError(false);
-        reset();
-      } else {
-        setRequestError(false);
+    console.log(`requestSucess ${requestSucess}`);
+    console.log(`requestEnd ${requestEnd}`);
+    if (requestSucess && requestEnd) {
+      console.log('entrou');
+      reset();
+      resetRequestInfo(false);
+    }
+    if (!requestSucess && requestEnd) {
+      resetRequestInfo(false);
+    }
+  };
+
+  const handleFormPopulate = () => {
+    if (adminOperation === 'update' && Object.keys(infoToUpdate)) {
+      for (const [key, value] of Object.entries(infoToUpdate)) {
+        setValue(`${key}`, `${value}`);
       }
     }
   };
 
+  // when select chenges to create reset form
   useEffect(() => {
     if (adminOperation === 'create') {
       reset();
@@ -71,6 +85,10 @@ export default function ControlForm() {
   useEffect(() => {
     handleRequestEnd();
   }, [requestEnd]);
+
+  useEffect(() => {
+    handleFormPopulate();
+  }, []);
 
   return (
     <main className="w-screen grow bg-slate-200 text-slate-800 flex flex-col justify-center">
