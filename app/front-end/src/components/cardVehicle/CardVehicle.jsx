@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { selectLogged } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { showModal, setIdToRemove } from '../../features/vehicles/vehiclesSlice';
+import { showModal, setIdToRemove, setInfoToUpdate } from '../../features/vehicles/vehiclesSlice';
 
 export default function CardVehicle({ vehicleInfo }) {
   const { model, brand, description, year, buyValue, image, _id: id } = vehicleInfo;
@@ -29,7 +29,12 @@ export default function CardVehicle({ vehicleInfo }) {
         </div>
         {logged && (
           <div className="card-actions justify-end">
-            <button className="btn btn-primary" onClick={() => navigate('/admin')}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                dispatch(setInfoToUpdate(vehicleInfo));
+                navigate('/admin');
+              }}>
               Editar
             </button>
             <button
