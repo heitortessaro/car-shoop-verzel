@@ -103,6 +103,7 @@ export const selectRequestSucess = (state) => state.vehicles.requestSucess;
 export const selectRequestEnd = (state) => state.vehicles.requestEnd;
 export const selectIdToRemove = (state) => state.vehicles.idToRemove;
 export const selectShowModal = (state) => state.vehicles.showModal;
+export const selectInfoToUpdate = (state) => state.vehicles.infoToUpdate;
 
 export const {
   setIdToRemove,

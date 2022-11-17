@@ -3,7 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectLogged, selectToken } from '../../features/user/userSlice';
-import { selectRequestSucess, selectRequestEnd } from '../../features/vehicles/vehiclesSlice';
+import {
+  selectRequestSucess,
+  selectRequestEnd,
+  selectInfoToUpdate
+} from '../../features/vehicles/vehiclesSlice';
 import saveVehicle from '../../features/vehicles/actions/saveVehicle';
 import { useState } from 'react';
 import AdminBar from '../../components/adminBar/AdminBar';
@@ -18,6 +22,7 @@ export default function ControlForm() {
   const loggedUser = useSelector(selectLogged);
   const requestSucess = useSelector(selectRequestSucess);
   const requestEnd = useSelector(selectRequestEnd);
+  const infoToUpdate = useSelector(selectInfoToUpdate);
 
   const [requestError, setRequestError] = useState(false);
 
@@ -28,12 +33,7 @@ export default function ControlForm() {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      model: '',
-      brand: '',
-      description: '',
-      year: 2000,
-      color: '',
-      buyValue: 0
+      ...infoToUpdate
     }
   });
 
@@ -161,7 +161,7 @@ export default function ControlForm() {
                       message: 'Não são aceitos valores negativos'
                     }
                   })}
-                  placeholder="Valor sem pontos ou espaços"
+                  placeholder="Valor do vehículo sem vírgula"
                   className="input input-bordered input-primary w-full max-w-2xl"
                 />
                 {errors.buyValue !== undefined && (
@@ -195,7 +195,17 @@ export default function ControlForm() {
               <p className="text-xs text-red-500">{errors.vehicleImage.message}</p>
             )}
 
-            <input type="submit" value="Cadastrar" className="btn w-32 mx-auto" />
+            <div className="flex">
+              <button type="submit" className="btn w-32 mx-auto">
+                Cadastrar
+              </button>
+              <button
+                type="button"
+                onClick={() => reset()}
+                className="btn btn-warning w-32 mx-auto">
+                Limpar Formulário
+              </button>
+            </div>
           </form>
         )}
       </div>
