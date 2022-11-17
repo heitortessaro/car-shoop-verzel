@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectLogged, selectToken } from '../../features/user/userSlice';
+import { selectLogged, selectToken, selectAdminOperation } from '../../features/user/userSlice';
 import {
   selectRequestSucess,
   selectRequestEnd,
@@ -23,6 +23,7 @@ export default function ControlForm() {
   const requestSucess = useSelector(selectRequestSucess);
   const requestEnd = useSelector(selectRequestEnd);
   const infoToUpdate = useSelector(selectInfoToUpdate);
+  const adminOperation = useSelector(selectAdminOperation);
 
   const [requestError, setRequestError] = useState(false);
 
@@ -62,6 +63,12 @@ export default function ControlForm() {
   };
 
   useEffect(() => {
+    if (adminOperation === 'create') {
+      reset();
+    }
+  }, [adminOperation]);
+
+  useEffect(() => {
     handleRequestEnd();
   }, [requestEnd]);
 
@@ -69,6 +76,11 @@ export default function ControlForm() {
     <main className="w-screen grow bg-slate-200 text-slate-800 flex flex-col justify-center">
       {loggedUser && <AdminBar />}
       <div className="grow flex flex-col justify-center items-center">
+        {adminOperation === 'create' ? (
+          <h2 className="text-xl text font-semibold">Adicionar Veículo</h2>
+        ) : (
+          <h2 className="text-xl text font-semibold">Atualizar Veículo</h2>
+        )}
         {requestError && (
           <p className="text-red-500 ">Erro ao realizar a operação com o servidor</p>
         )}
@@ -197,14 +209,16 @@ export default function ControlForm() {
 
             <div className="flex">
               <button type="submit" className="btn w-32 mx-auto">
-                Cadastrar
+                {adminOperation === 'create' ? 'Cadastrar' : 'Atualizar Registro'}
               </button>
-              <button
-                type="button"
-                onClick={() => reset()}
-                className="btn btn-warning w-32 mx-auto">
-                Limpar Formulário
-              </button>
+              {adminOperation === 'create' && (
+                <button
+                  type="button"
+                  onClick={() => reset()}
+                  className="btn btn-warning w-32 mx-auto">
+                  Limpar Formulário
+                </button>
+              )}
             </div>
           </form>
         )}
