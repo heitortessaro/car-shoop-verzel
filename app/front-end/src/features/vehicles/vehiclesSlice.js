@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import getVehicles from './actions/getvehicles';
 import saveVehicle from './actions/saveVehicle';
 import deleteVehicle from './actions/deleteVehicle';
+import updateVehicle from './actions/updateVehicle';
 
 const initialState = {
   receivedVehicles: [],
@@ -91,6 +92,15 @@ const vehiclesSlice = createSlice({
       state.requestEnd = true;
     },
     [deleteVehicle.rejected]: (state) => {
+      state.requestError = true;
+      state.requestEnd = true;
+    },
+    // UPDATE
+    [updateVehicle.fulfilled]: (state) => {
+      state.requestSucess = true;
+      state.requestEnd = true;
+    },
+    [updateVehicle.rejected]: (state) => {
       state.requestError = true;
       state.requestEnd = true;
     }
