@@ -9,7 +9,9 @@ const initialState = {
   loading: true,
   requestError: false,
   requestSucess: false,
-  requestEnd: false
+  requestEnd: false,
+  showModal: false,
+  idToRemove: ''
 };
 
 const vehiclesSlice = createSlice({
@@ -21,6 +23,15 @@ const vehiclesSlice = createSlice({
     },
     resetRequestSucess: (state) => {
       state.requestError = false;
+    },
+    hideModal: (state) => {
+      state.showModal = false;
+    },
+    showModal: (state) => {
+      state.showModal = true;
+    },
+    setIdToRemove: (state, { payload }) => {
+      state.idToRemove = payload;
     },
     sortVehicleList: (state, { payload }) => {
       switch (payload) {
@@ -83,7 +94,16 @@ export const selectVehicles = (state) => state.vehicles.vehiclesList;
 export const selectLoading = (state) => state.vehicles.loading;
 export const selectRequestSucess = (state) => state.vehicles.requestSucess;
 export const selectRequestEnd = (state) => state.vehicles.requestEnd;
+export const selectIdToRemove = (state) => state.vehicles.idToRemove;
+export const selectShowModal = (state) => state.vehicles.showModal;
 
-export const { resetRequestError, sortVehicleList, resetRequestSucess } = vehiclesSlice.actions;
+export const {
+  setIdToRemove,
+  hideModal,
+  showModal,
+  resetRequestError,
+  sortVehicleList,
+  resetRequestSucess
+} = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;
