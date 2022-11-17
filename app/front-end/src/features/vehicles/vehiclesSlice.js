@@ -11,7 +11,8 @@ const initialState = {
   requestSucess: false,
   requestEnd: false,
   showModal: false,
-  idToRemove: ''
+  idToRemove: '',
+  infoToUpdate: {}
 };
 
 const vehiclesSlice = createSlice({
@@ -32,6 +33,12 @@ const vehiclesSlice = createSlice({
     },
     setIdToRemove: (state, { payload }) => {
       state.idToRemove = payload;
+    },
+    setInfoToUpdate: (state, { payload }) => {
+      state.infoToUpdate = payload;
+    },
+    resetInfoToUpdate: (state) => {
+      state.infoToUpdate = {};
     },
     sortVehicleList: (state, { payload }) => {
       switch (payload) {
@@ -103,7 +110,9 @@ export const {
   showModal,
   resetRequestError,
   sortVehicleList,
-  resetRequestSucess
+  resetRequestSucess,
+  setInfoToUpdate,
+  resetInfoToUpdate
 } = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;
