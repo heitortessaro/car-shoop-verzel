@@ -1,61 +1,45 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import deleteVehicle from '../../features/vehicles/actions/deleteVehicle';
-import getvehicles from '../../features/vehicles/actions/getvehicles';
 import { selectToken } from '../../features/user/userSlice';
-import { selectRequestSucess, selectRequestEnd } from '../../features/vehicles/vehiclesSlice';
+import { useNavigate } from 'react-router-dom';
+import { selectIdToRemove, hideModal } from '../../features/vehicles/vehiclesSlice';
 
-export default function DeleteConfirmationModal({ vehicleId }) {
+export default function DeleteConfirmationModal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const authorizationToken = useSelector(selectToken);
-  const requestSucess = useSelector(selectRequestSucess);
-  const requestEnd = useSelector(selectRequestEnd);
+  const vehicleId = useSelector(selectIdToRemove);
 
   const handleRemoveVehicle = () => {
     dispatch(deleteVehicle({ authorizationToken, vehicleId }));
+    navigate('/admin');
   };
-
-  const handleRequestEnd = () => {
-    if (requestEnd) {
-      if (requestSucess) {
-        useDispatch(getvehicles());
-      }
-    }
-  };
-
-  useEffect(() => {
-    handleRequestEnd();
-  }, [requestEnd]);
 
   return (
-    <div>
-      <a href="#my-modal-2" className="btn btn-warning">
-        Remove Registro
-      </a>
-
-      <div className="modal" id="my-modal-2">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
-          <p className="py-4">
-            Você está removendo esse registro do banco de dados. Se você está ciente dessa operação
-            e desaja confirmá-la clique no botão{' '}
-            <span className="font-bold">Confirmar Remoção</span> abaixo.
-          </p>
-          <div className="modal-action">
-            <a href="#" className="btn">
-              Cancelar Operação
-            </a>
-            <a href="#" onClick={() => handleRemoveVehicle()} className="btn btn-error">
-              Confirmar Remoção
-            </a>
-          </div>
+    <div className="fade fixed top-1/3 left-1/3 w-full h-full overflow-x-hidden overflow-y-auto">
+      <div className="modal-box border-3 border-r-4 bg-base-content text-white">
+        <h3 className="font-bold text-lg">Remover o registro do banco de dados?</h3>
+        <p className="py-4">
+          Você está removendo esse registro do banco de dados. Se você está ciente dessa operação e
+          desaja confirmá-la clique no botão <span className="font-bold">Confirmar Remoção </span>{' '}
+          abaixo.
+        </p>
+        <div className="flex justify-around">
+          <button type="button " onClick={() => dispatch(hideModal())} className="btn btn-primary">
+            Cancelar Operação
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              dispatch(hideModal());
+              handleRemoveVehicle();
+            }}
+            className="btn btn-error">
+            Confirmar Remoção
+          </button>
         </div>
       </div>
     </div>
   );
 }
-
-DeleteConfirmationModal.propTypes = {
-  vehicleId: PropTypes.string.isRequired
-};
