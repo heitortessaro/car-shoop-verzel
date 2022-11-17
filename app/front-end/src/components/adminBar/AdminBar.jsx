@@ -1,14 +1,26 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { defineAdminOperation, logout } from '../../features/user/userSlice';
+import { logout, selectAdminOperation, defineAdminOperation } from '../../features/user/userSlice';
+import { resetInfoToUpdate } from '../../features/vehicles/vehiclesSlice';
 
 export default function AdminBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const adminOperation = useSelector(selectAdminOperation);
+
   const handleSelect = (e) => {
-    dispatch(defineAdminOperation(e.target.value));
+    if (adminOperation == 'update' && e.target.value == 'create') {
+      dispatch(resetInfoToUpdate());
+      dispatch(defineAdminOperation(e.target.value));
+      navigate('/admin');
+    }
+    if (adminOperation == 'create' && e.target.value == 'update') {
+      dispatch(resetInfoToUpdate());
+      dispatch(defineAdminOperation(e.target.value));
+      navigate('/');
+    }
   };
 
   return (
@@ -20,15 +32,13 @@ export default function AdminBar() {
         }}
         type="buttom"
         value="Log out"
-        className="btn btn-outline w-32"
+        className="btn btn-primary w-32"
       />
       <select onChange={handleSelect} className="select select-secondary w-full max-w-xs">
         <option disabled selected>
-          Selecione a operação a ser realizada
+          Selecione ação
         </option>
         <option value="create">Adicionar veículo</option>
-        <option value="research">Buscar veículo</option>
-        <option value="delete">Remover veículo</option>
         <option value="update">Atualizar veículo</option>
       </select>
     </div>
