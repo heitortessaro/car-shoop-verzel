@@ -20,11 +20,9 @@ const vehiclesSlice = createSlice({
   name: 'vehicles',
   initialState,
   reducers: {
-    resetRequestError: (state) => {
+    resetRequestInfo: (state) => {
       state.requestError = false;
-    },
-    resetRequestSucess: (state) => {
-      state.requestError = false;
+      state.requestEnd = false;
     },
     hideModal: (state) => {
       state.showModal = false;
@@ -39,7 +37,7 @@ const vehiclesSlice = createSlice({
       state.infoToUpdate = payload;
     },
     resetInfoToUpdate: (state) => {
-      state.infoToUpdate = {};
+      state.infoToUpdate = null;
     },
     sortVehicleList: (state, { payload }) => {
       switch (payload) {
@@ -99,6 +97,7 @@ const vehiclesSlice = createSlice({
     [updateVehicle.fulfilled]: (state) => {
       state.requestSucess = true;
       state.requestEnd = true;
+      state.infoToUpdate = {};
     },
     [updateVehicle.rejected]: (state) => {
       state.requestError = true;
@@ -119,9 +118,8 @@ export const {
   setIdToRemove,
   hideModal,
   showModal,
-  resetRequestError,
+  resetRequestInfo,
   sortVehicleList,
-  resetRequestSucess,
   setInfoToUpdate,
   resetInfoToUpdate
 } = vehiclesSlice.actions;
