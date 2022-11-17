@@ -1,15 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { selectLogged } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
-import DeleteConfirmationModal from '../../components/deleteConfirmationModal/DeleteConfirmationModal';
+import { showModal, setIdToRemove } from '../../features/vehicles/vehiclesSlice';
 
 export default function CardVehicle({ vehicleInfo }) {
   const { model, brand, description, year, buyValue, image, _id: id } = vehicleInfo;
   const imageURL = `${import.meta.env.VITE_API_BASE_URL}${image}`;
   const logged = useSelector(selectLogged);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className="card w-96 bg-base-100 text-zinc-700 shadow-xl">
@@ -31,7 +32,15 @@ export default function CardVehicle({ vehicleInfo }) {
             <button className="btn btn-primary" onClick={() => navigate('/admin')}>
               Editar
             </button>
-            <DeleteConfirmationModal vehicleId={id} />
+            <button
+              className="btn btn-warning"
+              type="buttom"
+              onClick={() => {
+                dispatch(setIdToRemove(id));
+                dispatch(showModal(true));
+              }}>
+              Remove Registro
+            </button>
           </div>
         )}
       </div>
