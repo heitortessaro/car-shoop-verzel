@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <main className="w-screen grow bg-slate-200 text-slate-800 flex flex-wrap	gap-4 justify-center pb-4">
-      <SelectBar />
+      {!loading && <SelectBar />}
       {loading && (
         <div className="fixed bottom-24 right-0 h-full w-full flex justify-center items-center">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
